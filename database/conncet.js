@@ -2,7 +2,12 @@
 const mongoose = require('mongoose');
 mongoose.set('useCreateIndex',true);
 mongoose.connect('mongodb://localhost/GraduateDatabase',{useNewUrlParser: true,useUnifiedTopology: true})
-.then(()=>console.log('数据库连接成功'))
+    .then((client)=> {
+        console.log('数据库连接成功')
+        // const collection = client.db('GraduateDatabase').collection('forms')
+        // console.log(collection);
+    }
+)
 .catch(()=>console.log('数据库连接失败'))
 
 

@@ -9,6 +9,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // require('./database/formData');
 const formRouter = require('./route/formRouter');
 const QueRouter = require('./route/QueRouter');
+const AnalyRouter = require('./route/analysisRouter');
+require('./handle')
 app.use((req,res,next)=>{
     res.header('Access-Control-Allow-Origin','*')
     res.setHeader('Content-Type', 'application/json;charset=utf-8')
@@ -21,6 +23,7 @@ app.use('/api/form',formRouter);
 //formData为请求表单路径
 app.use('/api/formData',QueRouter)
 
+app.use('/api/analysis',AnalyRouter)
 
 app.listen(3000)
 console.log('服务器启动成功');
