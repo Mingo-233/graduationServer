@@ -126,6 +126,9 @@ AnalyRouter.get('/analysis12', async (req, res) => {
     }
     res.send(sum)
 })
+
+
+
 module.exports = AnalyRouter;
 
 
