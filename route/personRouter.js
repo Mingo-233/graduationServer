@@ -55,25 +55,60 @@ let handle5 = async () => {
 //         })
 // })()
 
-personRouter.get('/personCheck/:id', async (req, res) => {
+// (async () => {
+//     let Result = await Form.findOne({ StudentID: 2017010888 }).lean()
+//     let score = 0
+//     let array = Result.Q21.concat(Result.Q23, Result.Q24, Result.Q25, Result.Q26)
+//     array.forEach(item => {
+//         score += Number(item)
+//     });
+//     console.log(array);
+//     console.log(score);
+
+// })()
+personRouter.get('/personCheck1/:id', async (req, res) => {
     const id = req.params.id;
-    let Result = await Form.findOne({ StudentID: id }).lean()
-
-    console.log(Result);
-
-    res.send('ok')
-
-
-
+    let Result = await Form1.findOne({ StudentID: id }).lean()
+    let score = 0
+    let array = Result.Q9.concat(Result.Q10)
+    array.forEach(item => {
+        score += Number(item)
+    });
+    console.log(score);
+    const data = {
+        'score': score,
+        'total': 50
+    }
+    res.send(data)
+})
+personRouter.get('/personCheck2/:id', async (req, res) => {
+    const id = req.params.id;
+    let Result = await Form2.findOne({ StudentID: id }).lean()
+    let score = 0
+    let array = Result.Q12.concat(Result.Q13, Result.Q14, Result.Q15, Result.Q16, Result.Q17)
+    array.forEach(item => {
+        score += Number(item)
+    });
+    const data = {
+        'score': score,
+        'total': 47
+    }
+    console.log(data);
+    res.send(data)
+})
+personRouter.get('/personCheck3/:id', async (req, res) => {
+    const id = req.params.id;
+    let Result = await Form3.findOne({ StudentID: id }).lean()
+    let score = 0
+    let array = Result.Q21.concat(Result.Q23, Result.Q24, Result.Q25, Result.Q26)
+    array.forEach(item => {
+        score += Number(item)
+    });
+    const data = {
+        'score': score,
+        'total': 79
+    }
+    console.log(data);
+    res.send(data)
 })
 module.exports = personRouter;
-
-//合并数据库
-// const id = req.params.id;
-// let result1 = await Form1.findOne({ StudentID: id }).lean()
-// let result2 = await Form2.findOne({ StudentID: id }).lean()
-// let result3 = await Form3.findOne({ StudentID: id }).lean()
-// let result4 = await Form4.findOne({ StudentID: id }).lean()
-// let result5 = await Form5.findOne({ StudentID: id }).lean()
-// const resultSummary = Object.assign({}, result1, result2, result3, result4, result5)
-// console.log(resultSummary);
