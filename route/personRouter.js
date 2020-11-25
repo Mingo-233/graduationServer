@@ -84,6 +84,7 @@ personRouter.get('/personCheck1/:id', async (req, res) => {
 personRouter.get('/personCheck2/:id', async (req, res) => {
     const id = req.params.id;
     let Result = await Form2.findOne({ StudentID: id }).lean()
+
     let score = 0
     let array = Result.Q12.concat(Result.Q13, Result.Q14, Result.Q15, Result.Q16, Result.Q17)
     array.forEach(item => {
@@ -107,6 +108,37 @@ personRouter.get('/personCheck3/:id', async (req, res) => {
     const data = {
         'score': score,
         'total': 79
+    }
+    console.log(data);
+    res.send(data)
+})
+personRouter.get('/personCheck4/:id', async (req, res) => {
+    const id = req.params.id;
+    let Result = await Form4.findOne({ StudentID: id }).lean()
+    let score = 0
+    let array = Result.Q30.concat(Result.Q34, Result.Q35)
+    console.log(Result);
+    array.forEach(item => {
+        score += Number(item)
+    });
+    const data = {
+        'score': score,
+        'total': 46
+    }
+    console.log(data);
+    res.send(data)
+})
+personRouter.get('/personCheck5/:id', async (req, res) => {
+    const id = req.params.id;
+    let Result = await Form5.findOne({ StudentID: id }).lean()
+    let score = 0
+    let array = Result.Q36.concat(Result.Q37, Result.Q38, Result.Q39)
+    array.forEach(item => {
+        score += Number(item)
+    });
+    const data = {
+        'score': score,
+        'total': 92
     }
     console.log(data);
     res.send(data)
