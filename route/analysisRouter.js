@@ -2,6 +2,39 @@ var express = require('express');
 var AnalyRouter = express.Router();
 
 const { Form } = require('../database/formData');
+const { Form1 } = require('../database/formData1');
+
+(async () => {
+    const result = await Form1.find()
+    const resultWlw = await Form1.find({ major: '物联网工程' })
+    const resultTx = await Form1.find({ major: '通信工程' })
+    const resultJxdz = await Form1.find({ major: '机械电子工程' })
+    let sumQ9 = arrayAddition(result, 'Q9')
+    let sumQ9Wlw = arrayAddition(resultWlw, 'Q9')
+    let sumQ9Tx = arrayAddition(resultTx, 'Q9')
+    let sumQ9Jxdz = arrayAddition(resultJxdz, 'Q9')
+    let average = []
+    let averageWlw = []
+    let averageTx = []
+    let averageJxdz = []
+
+    sumQ9.forEach((item, index) => {
+        average.push(item[0])
+        averageWlw.push(item[0])
+        averageTx.push(item[0])
+        averageJxdz.push(item[0])
+    });
+    console.log(sumQ9);
+    // const SUM9 = {
+    //     sumQ9: sumQ9,
+    //     sumQ9Wlw: sumQ9Wlw,
+    //     sumQ9Tx: sumQ9Tx,
+    //     sumQ9Jxdz: sumQ9Jxdz
+    // }
+    // res.send(SUM9)
+}
+)()
+//基础信息表格
 AnalyRouter.get('/analysis0', async (req, res) => {
     const result = await Form.find()
     var newArr = []
@@ -17,34 +50,68 @@ AnalyRouter.get('/analysis0', async (req, res) => {
     })
     res.send(newArr)
 })
-// Q6
+// Q9
 AnalyRouter.get('/analysis1', async (req, res) => {
-    const result = await Form.find()
-    var newArr = []
-    result.forEach((item) => {
-        newArr.push(item.Q6)
-    })
-    var sum = []
-    const n = newArr.length
-    // 多个数组的对应项相加
-    for (const key in newArr) {
-        newArr[key].forEach((value, i) => {
-            if (sum[i] == null || sum[i] == '') {
-                sum[i] = 0
-            }
-            sum[i] += parseInt(value) / n
-            // 保留2位小数
-            sum[i] = Math.round(sum[i] * 100) / 100
-        })
+    const result = await Form1.find()
+    const resultWlw = await Form1.find({ major: '物联网工程' })
+    const resultTx = await Form1.find({ major: '通信工程' })
+    const resultJxdz = await Form1.find({ major: '机械电子工程' })
+    let sumQ9 = arrayAddition(result, 'Q9')
+    //物联网
+    let sumQ9Wlw = arrayAddition(resultWlw, 'Q9')
+    let sumQ9Tx = arrayAddition(resultTx, 'Q9')
+    let sumQ9Jxdz = arrayAddition(resultJxdz, 'Q9')
+    let average = []
+    let averageWlw = []
+    let averageTx = []
+    let averageJxdz = []
+
+    sumQ9.forEach((item, index) => {
+        average.push(item[0])
+        averageWlw.push(item[0])
+        averageTx.push(item[0])
+        averageJxdz.push(item[0])
+
+
+    });
+    const SUM9 = {
+        sumQ9: sumQ9,
+        sumQ9Wlw: sumQ9Wlw,
+        sumQ9Tx: sumQ9Tx,
+        sumQ9Jxdz: sumQ9Jxdz
     }
-    res.send(sum)
+    res.send(SUM9)
 })
-// Q7
+// Q10
 AnalyRouter.get('/analysis2', async (req, res) => {
+    const result = await Form1.find()
+    const resultWlw = await Form1.find({ major: '物联网工程' })
+    const resultTx = await Form1.find({ major: '通信工程' })
+    const resultJxdz = await Form1.find({ major: '机械电子工程' })
+    let sumQ10 = arrayAddition(result, 'Q10')
+    let sumQ10Wlw = arrayAddition(resultWlw, 'Q10')
+    let sumQ10Tx = arrayAddition(resultTx, 'Q10')
+    let sumQ10Jxdz = arrayAddition(resultJxdz, 'Q10')
+    const SUM10 = {
+        sumQ10: sumQ10,
+        sumQ10Wlw: sumQ10Wlw,
+        sumQ10Tx: sumQ10Tx,
+        sumQ10Jxdz: sumQ10Jxdz
+    }
+    res.send(SUM10)
+})
+// Q11
+AnalyRouter.get('/analysis3', async (req, res) => {
+    const result = await Form1.find()
+    const sumQ11 = arrayAdditionBar(result, 'Q11')
+    res.send(sumQ11)
+})
+// Q12
+AnalyRouter.get('/analysis12', async (req, res) => {
     const result = await Form.find()
     var newArr = []
     result.forEach((item) => {
-        newArr.push(item.Q7)
+        newArr.push(item.Q12)
     })
     var sum = []
     const n = newArr.length
@@ -61,12 +128,32 @@ AnalyRouter.get('/analysis2', async (req, res) => {
     }
     res.send(sum)
 })
-// Q8
-AnalyRouter.get('/analysis3', async (req, res) => {
-    const result = await Form.find()
+
+function arrayAddition(array, Qnumber) {
     var newArr = []
-    result.forEach((item) => {
-        newArr.push(item.Q8)
+    array.forEach((item) => {
+        newArr.push(item[Qnumber])
+    })
+    var sum = []
+    const n = newArr.length
+    // 多个数组的对应项相加
+    for (const key in newArr) {
+        newArr[key].forEach((value, i) => {
+            if (sum[i] == null || sum[i] == '') {
+                sum[i] = 0
+            }
+            sum[i] += parseInt(value) / n
+            // 保留2位小数
+            sum[i] = Math.round(sum[i] * 100) / 100
+        })
+    }
+    return sum
+}
+
+function arrayAdditionBar(array, Qnumber) {
+    var newArr = []
+    array.forEach((item) => {
+        newArr.push(item[Qnumber])
     })
     const sum = [
         { value: 0, name: "与专业老师交流" },
@@ -102,33 +189,8 @@ AnalyRouter.get('/analysis3', async (req, res) => {
             }
         })
     }
-    res.send(sum)
-})
-// Q12
-AnalyRouter.get('/analysis12', async (req, res) => {
-    const result = await Form.find()
-    var newArr = []
-    result.forEach((item) => {
-        newArr.push(item.Q12)
-    })
-    var sum = []
-    const n = newArr.length
-    // 多个数组的对应项相加
-    for (const key in newArr) {
-        newArr[key].forEach((value, i) => {
-            if (sum[i] == null || sum[i] == '') {
-                sum[i] = 0
-            }
-            sum[i] += parseInt(value) / n
-            // 保留2位小数
-            sum[i] = Math.round(sum[i] * 100) / 100
-        })
-    }
-    res.send(sum)
-})
-
-
-
+    return sum
+}
 module.exports = AnalyRouter;
 
 
