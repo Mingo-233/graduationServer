@@ -14,7 +14,7 @@ const QueRouter = require('./route/QueRouter');
 const AnalyRouter = require('./route/analysisRouter');
 const personRouter = require('./route/personRouter');
 
-//require('./handle')
+require('./handle')
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*')
     res.setHeader('Content-Type', 'application/json;charset=utf-8')

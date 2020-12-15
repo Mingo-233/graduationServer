@@ -42,12 +42,13 @@ let handle5 = async () => {
     return await Form5.findOne({ StudentID: 2017010888 }).lean()
 
 }
+
 (async () => {
     // let result1 = await handle1()
     // let result2 = await handle2()
     // let result3 = await handle3()
     // let result4 = await handle4()
-    let result5 = await handle5()
+    //let result5 = await handle5()
 
     //console.log(result5);
     // const resultSummary = Object.assign({}, result1, result2, result3, result4, result5)
@@ -58,6 +59,15 @@ let handle5 = async () => {
     //     .catch((err) => {
     //         console.log(err);
     //     })
+
+    let a = [1, 2, 3]
+    let b = [2, 3, 4]
+    let c = [3, 4, 5]
+    let SetArray = new Set([...a, ...b, ...c])
+    console.log(...a);
+    // let test = SetArray.add()
+    console.log(SetArray);
+    console.log(typeof SetArray);
 })()
 module.exports = mergeRouter;
 
