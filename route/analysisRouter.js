@@ -8,14 +8,16 @@ const { Form1 } = require('../database/formData1');
 const { Form2 } = require('../database/formData2');
 const { Form3 } = require('../database/formData3');
 const { Form4 } = require('../database/formData4');
+const { Form5 } = require('../database/formData5');
 (async () => {
-    // const result = await Form4.find()
-    // const params = [{ value: 0, name: '社会活动教育类的通识课程' }, { value: 0, name: '本专业领域的实习实践' }, { value: 0, name: '勤工助学' }, { value: 0, name: '助教助研' },
-    // { value: 0, name: '校园清洁' }, { value: 0, name: '社会公益活动' }, { value: 0, name: '没有参加任何劳动教育' }]
-    // const sumQ31 = arrayAdditionSwitch(result, 'Q31', params)
-    // console.log(sumQ31);
-
-
+    // const result = await Form5.find()
+    // var newArr = []
+    // result.forEach((item) => {
+    //     if (item.Q45) {
+    //         newArr.push(item.Q45)
+    //     }
+    // })
+    // console.log(newArr);
 }
 )()
 //基础信息表格
@@ -25,12 +27,30 @@ AnalyRouter.get('/analysis0', async (req, res) => {
     result.forEach((item) => {
         const params = {
             sex: item.sex,
-            nation: item.nation,
+            age: item.age,
+            grade: item.grade,
+            school: item.school,
+            college: item.college,
             major: item.major,
-            education: item.education,
-            profession: item.profession
+            // StudentID: item.StudentID,
+            profession: item.profession,
+            GPA: item.Q17,
+            match: item.Q33,
+            matchTime: item.Q34,
+            matchResult: item.Q35
         }
         newArr.push(params)
+    })
+    res.send(newArr)
+})
+//评论
+AnalyRouter.get('/comment', async (req, res) => {
+    const result = await Form5.find()
+    var newArr = []
+    result.forEach((item) => {
+        if (item.Q45 && item.Q45switch) {
+            newArr.push(item.Q45)
+        }
     })
     res.send(newArr)
 })
