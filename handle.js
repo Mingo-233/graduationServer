@@ -1,4 +1,3 @@
-const e = require('express');
 var express = require('express');
 var mergeRouter = express.Router();
 var mongoose = require('mongoose');
