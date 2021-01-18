@@ -5,7 +5,7 @@ const fs = require('fs');
 const loginRouter = express.Router();
 const { Accounts } = require('../database/account');
 var mongoose = require('mongoose');
-const { Menus } = require('../database/menus');
+// const { Menus } = require('../database/account');
 // lean属性的作用：转换mongoose查询结果类型，从MongooseDocuments转换为JS Object，从而便于我们修改查询结果。
 // 查询返回的数据实际上是MongooseDocuments对象（mongoose自己封装的一个对象）。 
 var patchMongoose = require('mongoose-lean');
@@ -79,12 +79,36 @@ loginRouter.post('/DetailsByKey', async (req, res, next) => {
 })
 loginRouter.post('/UserMenu', async (req, res, next) => {
     console.log(req.body);
-    const { Key ,} = req.body
+    const { Key } = req.body
     if (Key) {
-        const menuList = await Menus.findOne().lean()
-        console.log(menuList);
-        res.send(menuList.menuName)
+        fs.readFile(path.join(__dirname, '../rsa/public_key.pem'), 'utf8', (error, public_doc) => {
+            if (error) throw error
+            jwt.verify(Key, public_doc, (err, decode) => {
+                if (err) {
+                    //失效
+                    res.status(202).send({ 'status': 0, 'msg': '登录失效,请重新登录' })
+                } else {
+                    Accounts.findOne({ username: decode.username }).populate('menu').lean().then((result) => {
+                        console.log(result);
+                        res.status(200).send(
+                            result.menu
+                        )
+                    })
+                        .catch(() => {
+                            console.log('UserMenu接口出现意外错误');
+                        })
+
+                }
+            })
+        })
     }
+})
+
+loginRouter.get('/loginTest', async (req, res, next) => {
+    Accounts.find().populate('menu').then(doc => {
+        console.log(doc);
+        res.send(doc)
+    })
 })
 //生成token的方法
 function generateToken(username, password) {

@@ -32,7 +32,7 @@ AnalyRouter.get('/analysis0', async (req, res) => {
             school: item.school,
             college: item.college,
             major: item.major,
-            // StudentID: item.StudentID,
+            StudentID: item.StudentID,
             profession: item.profession,
             GPA: item.Q17,
             match: item.Q33,

@@ -133,5 +133,6 @@ const Menus = mongoose.model('Menus', menusSchema);
 //     .catch((err) => { console.log('账号创建失败', err); })
 
 module.exports = {
-    Accounts
+    Accounts,
+    Menus
 }
