@@ -8,7 +8,7 @@ var app = express()
 app.use(bodyParser.urlencoded({ extended: true }));
 // require('./database/formData');
 //const { formRouter, QueRouter, AnalyRouter, personRouter } = require('./route/');
-
+app.use('/', express.static('webdist'))
 const loginRouter = require('./route/loginRouter')
 const formRouter = require('./route/formRouter');
 const QueRouter = require('./route/QueRouter');
@@ -24,6 +24,7 @@ app.use((req, res, next) => {
     next()
 })
 //为路由匹配请求路径
+
 //form为表单提交
 app.use('/api/login', loginRouter)
 app.use('/api/form', formRouter);
@@ -34,3 +35,4 @@ app.use('/api/analysis', AnalyRouter)
 
 app.listen(3000)
 console.log('服务器启动成功');
+console.log('监听端口3000');
