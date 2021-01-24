@@ -1,7 +1,8 @@
 var express = require('express');
 var AnalyRouter = express.Router();
 //import { arrayAddition, arrayAdditionSwitch, arrayAdditionBar } from '../lib/compiled'
-const { arrayAddition, arrayAdditionSwitch, arrayAdditionBar, arrayThreePin, arreyMergeFunc } = require('../lib/compiled')
+const { arrayAddition, arrayAdditionSwitch, arrayAdditionBar, arrayThreePin,
+    arreyMergeFunc, foreachClasses, foreachClassesRadar } = require('../lib/compiled')
 
 const { Form } = require('../database/formData');
 const { Form1 } = require('../database/formData1');
@@ -10,14 +11,21 @@ const { Form3 } = require('../database/formData3');
 const { Form4 } = require('../database/formData4');
 const { Form5 } = require('../database/formData5');
 (async () => {
-    // const result = await Form5.find()
-    // var newArr = []
-    // result.forEach((item) => {
-    //     if (item.Q45) {
-    //         newArr.push(item.Q45)
-    //     }
-    // })
-    // console.log(newArr);
+    const query = {
+        colleges: '信息与智能工程学院', classes: ['物联网工程', '通信工程'],
+        Qnumber: 'Q9'
+    }
+    // const XYresult = await Form1.find({ college: query.colleges })
+    // let sumXYresult = arrayAddition(XYresult, query.Qnumber)
+    // console.log(sumXYresult);
+    // let sum = await foreachClassesRadar(query, 'Form1')
+    // console.log(sum);
+    // sum.unshift(sumXYresult)
+    // console.log(sum);
+
+    // res.send(sum)
+
+
 }
 )()
 //基础信息表格
@@ -56,6 +64,21 @@ AnalyRouter.get('/comment', async (req, res) => {
 })
 // Q9
 AnalyRouter.get('/analysis1', async (req, res) => {
+    console.log(req.query);
+    let query = req.query
+    if (query.colleges) {
+        const XYresult = await Form1.find({ college: query.colleges })
+        let sumXYresult = arrayAddition(XYresult, query.Qnumber)
+        console.log(sumXYresult);
+        let sum = await foreachClassesRadar(query, 'Form1')
+        sum.unshift(sumXYresult)
+        console.log(sum);
+        res.send(sum)
+    } else {
+        res.send({ msg: '传入参数为空，请重新选择' })
+    }
+})
+AnalyRouter.get('/analysis1Default', async (req, res) => {
     const result = await Form1.find()
     const resultWlw = await Form1.find({ major: '物联网工程' })
     const resultTx = await Form1.find({ major: '通信工程' })
@@ -83,8 +106,36 @@ AnalyRouter.get('/analysis1', async (req, res) => {
     }
     res.send(SUM9)
 })
+
 // Q10 条形
 AnalyRouter.get('/analysis2', async (req, res) => {
+    console.log(req.query);
+    let query = req.query
+    if (query.colleges) {
+        const XYresult = await Form1.find({ college: query.colleges })
+        let sumXYresult = arrayAdditionBar(XYresult, query.Qnumber, query.percentage)
+        console.log(sumXYresult);
+        let sum = await foreachClasses(query, 'Form1')
+        console.log(sum);
+        sum.unshift(sumXYresult)
+        res.send(sum)
+    } else {
+        res.send({ msg: '传入参数为空，请重新选择' })
+    }
+    // if (typeof query.classes !== 'undefined') {
+    //     let sum = await foreachClasses(query)
+    //     res.send(sum)
+    // } else if (query.colleges) {
+    //     const XYresult = await Form1.find({ college: query.colleges })
+    //     console.log(XYresult);
+    //     let sumXYresult = arrayAdditionBar(XYresult, query.Qnumber, query.percentage)
+    //     console.log(sumXYresult);
+    //     res.send(sumXYresult)
+    // } else {
+    //     res.send({ msg: '传入参数为空，请重新选择' })
+    // }
+})
+AnalyRouter.get('/analysis2Default', async (req, res) => {
     const result = await Form1.find()
     const resultWlw = await Form1.find({ major: '物联网工程' })
     const resultTx = await Form1.find({ major: '通信工程' })

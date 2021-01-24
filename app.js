@@ -7,7 +7,7 @@ var app = express()
 // 配置body-parser模块 
 app.use(bodyParser.urlencoded({ extended: true }));
 // require('./database/formData');
-//const { formRouter, QueRouter, AnalyRouter, personRouter } = require('./route/');
+
 app.use('/', express.static('webdist'))
 const loginRouter = require('./route/loginRouter')
 const formRouter = require('./route/formRouter');
