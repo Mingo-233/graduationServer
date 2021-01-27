@@ -55,6 +55,7 @@ loginRouter.post('/DetailsByKey', async (req, res, next) => {
                         res.status(200).send({
                             'status': 1, 'msg': '登陆成功', 'info': {
                                 Name: result.name,
+                                role: result.role,
                                 Key: token,
                                 Id: token
                             }

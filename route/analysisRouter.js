@@ -21,18 +21,19 @@ const { Form5 } = require('../database/formData5');
     // let sum = await foreachClasses(query, 'Form2', 'polar')
     // sum.unshift(sumXYresult)
     // console.log(sum);
-    const result = await Form2.find()
-    var newArr = []
-    result.forEach((item) => {
-        newArr.push(item['Q12'])
-    })
-    const sumQ12 = arrayThreePin(newArr)
-    console.log(sumQ12);
+
 }
 )()
 //基础信息表格
 AnalyRouter.get('/analysis0', async (req, res) => {
-    const result = await Form.find()
+    console.log(req.query);
+    let query = req.query;
+    let result
+    if (query.college === 'All') {
+        result = await Form.find()
+    } else {
+        result = await Form.find({ college: query.college })
+    }
     var newArr = []
     result.forEach((item) => {
         const params = {
