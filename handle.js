@@ -64,6 +64,7 @@ async function search(id, FormName) {
     // let idsSum = [...id1, ...id2, ...id3, ...id4, ...id5]
     // let SetArrayLike = new Set(idsSum)
     // let studentidArray = Array.from(SetArrayLike)
+    // console.log(studentidArray);
     // studentidArray.forEach(async (item) => {
     //     let personData1 = await search(item, Form1)
     //     let personData2 = await search(item, Form2)
@@ -71,7 +72,7 @@ async function search(id, FormName) {
     //     let personData4 = await search(item, Form4)
     //     let personData5 = await search(item, Form5)
     //     const personDataSummary = Object.assign({}, personData1, personData2, personData3, personData4, personData5)
-    //     console.log(personDataSummary);
+    //     // console.log(personDataSummary);
     //     Form.create(personDataSummary).then(() => {
     //         console.log('合并表单创建成功');
     //     })

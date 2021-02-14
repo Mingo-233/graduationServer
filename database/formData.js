@@ -44,6 +44,10 @@ const formSchema = new mongoose.Schema({
         type: Array,
         required: true
     },
+    careerPlan: {
+        type: String,
+        required: false
+    },
     Q12: {
         type: Array,
         required: true

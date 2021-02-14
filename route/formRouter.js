@@ -6,7 +6,6 @@ const { Form2 } = require('../database/formData2');
 const { Form3 } = require('../database/formData3');
 const { Form4 } = require('../database/formData4');
 const { Form5 } = require('../database/formData5');
-const { college } = require('../database/college');
 
 formRouter.post('/form1',
     function (req, res, next) {
@@ -25,6 +24,7 @@ formRouter.post('/form1',
             Q9: params.Q9,
             Q10: params.Q10,
             Q11: params.Q11,
+            careerPlan: params.careerPlan
         }).then(() => {
             res.send('表单数据接受成功')
         })
